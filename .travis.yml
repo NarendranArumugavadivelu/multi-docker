@@ -1,0 +1,16 @@
+sudo: required
+language: generic
+services: 
+  - docker
+
+before_install:
+  - docker build -t naren9990/react-test -f ./client/Dockerfile.dev ./client
+
+scripts:
+  - docker run -e CI=true naren9990/react-test npm run test
+
+after_success:
+  - docker build -t naren9990/multi-client ./client
+  - docker build -t naren9990/multi-nginx ./nginx
+  - docker build -t naren9990/multi-server ./server
+  - docker build -t naren9990/multi-worker ./worker  
