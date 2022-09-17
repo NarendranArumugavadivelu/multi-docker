@@ -13,4 +13,9 @@ after_success:
   - docker build -t naren9990/multi-client ./client
   - docker build -t naren9990/multi-nginx ./nginx
   - docker build -t naren9990/multi-server ./server
-  - docker build -t naren9990/multi-worker ./worker  
+  - docker build -t naren9990/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push naren9990/multi-client
+  - docker push naren9990/multi-nginx
+  - docker push naren9990/multi-server
+  - docker push naren9990/multi-worker  
